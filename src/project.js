@@ -15,4 +15,9 @@ export class Project {
     const toDo = new ToDo(name, desc, date, priority, status);
     this.toDos.push(toDo);
   }
+
+  removeToDo(toDo) {
+    let index = this.toDos.indexOf(toDo.name);
+    this.toDos.splice(index, 1);
+  }
 }
