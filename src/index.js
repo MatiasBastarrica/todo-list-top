@@ -2,7 +2,10 @@ import { Project } from "./project";
 
 console.log("Welcome, Odinite!!!");
 
-const project1 = new Project("My first project");
+const project1 = new Project(
+  "My first project",
+  "This is just an experimental project",
+);
 
 project1.addToDo(
   "Reading",

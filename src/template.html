@@ -6,6 +6,22 @@
     <title>Project ToDo list</title>
   </head>
   <body>
-    <h1>Project ToDo List</h1>
+    <main class="to-do-app">
+      <div class="to-do__sidebar">
+        <button type="button" class="btn-add-project">Add New Project</button>
+        <nav class="default-sections">
+          <ul>
+            <li class="inbox"><a href="#">Inbox</a></li>
+            <li class="today"><a href="#">Today</a></li>
+            <li class="upcoming"><a href="#">Upcoming</a></li>
+          </ul>
+        </nav>
+        <h2>Projects</h2>
+        <nav class="projects-section">
+          <ul class="projects-list"></ul>
+        </nav>
+      </div>
+      <div class="to-do__content"></div>
+    </main>
   </body>
 </html>
