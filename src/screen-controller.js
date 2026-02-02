@@ -43,8 +43,6 @@ export const ScreenController = (function () {
     });
   }
 
-  // function getCurrentProject() {}
-
   function addProjectToSidebar(project) {
     const listItem = document.createElement("li");
     const link = document.createElement("a");
@@ -64,40 +62,6 @@ export const ScreenController = (function () {
     toDoList.appendChild(toDoItem);
   }
 
-  // function addProject(list) {
-  //   const listItem = document.createElement("li");
-
-  //   const input = document.createElement("input");
-  //   input.type = "text";
-  //   listItem.appendChild(input);
-  //   const inputBtn = document.createElement("button");
-  //   inputBtn.textContent = "Ok";
-  //   listItem.appendChild(inputBtn);
-
-  //   inputBtn.addEventListener("click", function () {
-  //     const name = input.value;
-  //     const newProject = new Project(name);
-  //     projects.push(newProject);
-  //     list.removeChild(list.lastChild);
-  //     const listItem = document.createElement("li");
-  //     const link = document.createElement("a");
-  //     link.href = "#";
-  //     link.textContent = name;
-  //     listItem.appendChild(link);
-  //     link.addEventListener("click", function (e) {
-  //       const project = projects.filter(function (project) {
-  //         return project.name === name;
-  //       })[0];
-  //       populateContentSection(project);
-  //     });
-
-  //     list.appendChild(listItem);
-  //   });
-
-  //   list.appendChild(listItem);
-  //   // ScreenController.getProjects();
-  // }
-
   function populateContentSection(project) {
     const toDos = project.toDos;
 
@@ -116,8 +80,6 @@ export const ScreenController = (function () {
     addToDoBtn.textContent = "Add To-Do";
     contentSection.appendChild(addToDoBtn);
     addToDoBtn.addEventListener("click", function (e) {
-      // show a modal to get the values of the todo
-      // project.addToDo()
       newToDoDialog.showModal();
     });
 
