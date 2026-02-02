@@ -1,12 +1,46 @@
-const ScreenController = (function () {
+import { Project } from "./project.js";
+
+export const ScreenController = (function () {
   const btnAddProject = document.querySelector(".btn-add-project");
+  const projectsList = document.querySelector(".projects-list");
   const contentSection = document.querySelector(".to-do__content");
 
-  //   const projects = [];
+  const projects = [];
 
-  //   btnAddProject.addEventListener("click", function (e) {
+  function addListeners() {
+    btnAddProject.addEventListener("click", function (e) {
+      addProject(projectsList);
+    });
+  }
 
-  //   })
+  function addProject(list) {
+    const listItem = document.createElement("li");
+
+    const input = document.createElement("input");
+    input.type = "text";
+    listItem.appendChild(input);
+    const inputBtn = document.createElement("button");
+    inputBtn.textContent = "Ok";
+    listItem.appendChild(inputBtn);
+
+    inputBtn.addEventListener("click", function () {
+      const name = input.value;
+      const newProject = new Project(name);
+      projects.push(newProject);
+      list.removeChild(list.lastChild);
+      const listItem = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = "#";
+      link.textContent = name;
+      listItem.appendChild(link);
+
+      // listItem.textContent = name;
+      list.appendChild(listItem);
+    });
+
+    list.appendChild(listItem);
+    ScreenController.getProjects();
+  }
 
   function populateContentSection(project) {
     const toDos = project.toDos;
@@ -51,7 +85,13 @@ const ScreenController = (function () {
     });
   }
 
+  function getProjects() {
+    return console.log(projects);
+  }
+
   return {
     populateContentSection,
+    addListeners,
+    getProjects,
   };
 })();

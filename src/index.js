@@ -1,4 +1,7 @@
 import { Project } from "./project";
+import { ScreenController } from "./screen-controller.js";
+
+ScreenController.addListeners();
 
 console.log("Welcome, Odinite!!!");
 
@@ -26,3 +29,5 @@ project1.addToDo(
 console.log(project1);
 
 project1.removeToDo("Reading");
+
+ScreenController.getProjects();
