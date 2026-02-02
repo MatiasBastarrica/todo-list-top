@@ -10,24 +10,26 @@ const project1 = new Project(
   "This is just an experimental project",
 );
 
-project1.addToDo(
-  "Reading",
-  "Continue reading 'Brothers Karamazov'",
-  "tonight",
-  2,
-  "unfinished",
-);
+// project1.addToDo(
+//   "Reading",
+//   "Continue reading 'Brothers Karamazov'",
+//   "tonight",
+//   2,
+//   "unfinished",
+// );
 
-project1.addToDo(
-  "Hygiene",
-  "Take a shower after cleaning",
-  "Now",
-  5,
-  "unfinished",
-);
+// project1.addToDo(
+//   "Hygiene",
+//   "Take a shower after cleaning",
+//   "Now",
+//   5,
+//   "unfinished",
+// );
 
-console.log(project1);
+// console.log(project1);
 
-project1.removeToDo("Reading");
+// project1.removeToDo("Reading");
 
-ScreenController.getProjects();
+console.log(project1.toDos.length);
+
+// ScreenController.getProjects();

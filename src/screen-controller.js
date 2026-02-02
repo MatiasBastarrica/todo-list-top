@@ -4,43 +4,74 @@ export const ScreenController = (function () {
   const btnAddProject = document.querySelector(".btn-add-project");
   const projectsList = document.querySelector(".projects-list");
   const contentSection = document.querySelector(".to-do__content");
+  const newProjectDialog = document.querySelector(".new-project-dialog");
+  const newProjectDialogBtn = document.querySelector(
+    ".new-project-dialog__btn",
+  );
 
   const projects = [];
 
   function addListeners() {
     btnAddProject.addEventListener("click", function (e) {
-      addProject(projectsList);
+      newProjectDialog.showModal();
     });
-  }
 
-  function addProject(list) {
-    const listItem = document.createElement("li");
-
-    const input = document.createElement("input");
-    input.type = "text";
-    listItem.appendChild(input);
-    const inputBtn = document.createElement("button");
-    inputBtn.textContent = "Ok";
-    listItem.appendChild(inputBtn);
-
-    inputBtn.addEventListener("click", function () {
-      const name = input.value;
-      const newProject = new Project(name);
+    newProjectDialogBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const name = newProjectDialog.querySelector("#name").value;
+      const desc = newProjectDialog.querySelector("textarea").value;
+      const newProject = new Project(name, desc);
+      addProjectToSidebar(newProject);
       projects.push(newProject);
-      list.removeChild(list.lastChild);
-      const listItem = document.createElement("li");
-      const link = document.createElement("a");
-      link.href = "#";
-      link.textContent = name;
-      listItem.appendChild(link);
-
-      // listItem.textContent = name;
-      list.appendChild(listItem);
+      newProjectDialog.close();
     });
-
-    list.appendChild(listItem);
-    ScreenController.getProjects();
   }
+
+  function addProjectToSidebar(project) {
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    listItem.appendChild(link);
+    link.href = "#";
+    link.textContent = project.name;
+    projectsList.appendChild(listItem);
+    link.addEventListener("click", function (e) {
+      populateContentSection(project);
+    });
+  }
+
+  // function addProject(list) {
+  //   const listItem = document.createElement("li");
+
+  //   const input = document.createElement("input");
+  //   input.type = "text";
+  //   listItem.appendChild(input);
+  //   const inputBtn = document.createElement("button");
+  //   inputBtn.textContent = "Ok";
+  //   listItem.appendChild(inputBtn);
+
+  //   inputBtn.addEventListener("click", function () {
+  //     const name = input.value;
+  //     const newProject = new Project(name);
+  //     projects.push(newProject);
+  //     list.removeChild(list.lastChild);
+  //     const listItem = document.createElement("li");
+  //     const link = document.createElement("a");
+  //     link.href = "#";
+  //     link.textContent = name;
+  //     listItem.appendChild(link);
+  //     link.addEventListener("click", function (e) {
+  //       const project = projects.filter(function (project) {
+  //         return project.name === name;
+  //       })[0];
+  //       populateContentSection(project);
+  //     });
+
+  //     list.appendChild(listItem);
+  //   });
+
+  //   list.appendChild(listItem);
+  //   // ScreenController.getProjects();
+  // }
 
   function populateContentSection(project) {
     const toDos = project.toDos;
@@ -53,10 +84,17 @@ export const ScreenController = (function () {
     const projectDesc = document.createElement("p");
     projectDesc.classList.add("project-descprition");
     projectDesc.textContent = project.desc;
+    contentSection.appendChild(projectDesc);
 
     const toDoList = document.createElement("ul");
     toDoList.classList.add("to-do-list");
 
+    if (toDos.length) {
+      populateToDoSection(toDos);
+    }
+  }
+
+  function populateToDoSection(toDos) {
     toDos.forEach((toDo) => {
       const toDoItem = document.createElement(li);
       toDoItem.classList.add("to-do-list-item");
@@ -95,3 +133,5 @@ export const ScreenController = (function () {
     getProjects,
   };
 })();
+
+// Remove the getProjects method

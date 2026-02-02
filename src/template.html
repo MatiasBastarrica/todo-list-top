@@ -23,5 +23,21 @@
       </div>
       <div class="to-do__content"></div>
     </main>
+    <dialog closedby="any" class="new-project-dialog">
+      <form action="#" method="dialog">
+        <label for="name">Name</label><br />
+        <input type="text" placeholder="New Project" id="name" /><br />
+        <label for="desc">Description</label><br />
+        <textarea
+          name="desc"
+          id="desc"
+          cols="30"
+          rows="10"
+          placeholder="Short description"
+        ></textarea
+        ><br />
+        <button type="submit" class="new-project-dialog__btn">Save</button>
+      </form>
+    </dialog>
   </body>
 </html>
