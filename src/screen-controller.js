@@ -26,6 +26,7 @@ export const ScreenController = (function () {
       const newProject = new Project(name, desc);
       addProjectToSidebar(newProject);
       projects.push(newProject);
+      emptyModal(newProjectDialog);
       newProjectDialog.close();
     });
 
@@ -37,11 +38,12 @@ export const ScreenController = (function () {
       const priority = newToDoDialog.querySelector("#priority").value;
       currentProject.addToDo(title, desc, dueDate, priority, "unfinished");
       populateNewToDo(currentProject.toDos[currentProject.toDos.length - 1]);
+      emptyModal(newToDoDialog);
       newToDoDialog.close();
     });
   }
 
-  function getCurrentProject() {}
+  // function getCurrentProject() {}
 
   function addProjectToSidebar(project) {
     const listItem = document.createElement("li");
@@ -165,6 +167,16 @@ export const ScreenController = (function () {
 
   function getProjects() {
     return console.log(projects);
+  }
+
+  function emptyModal(modal) {
+    const textarea = modal.querySelector("textarea");
+    const inputs = modal.querySelectorAll("input");
+
+    textarea.value = "";
+    inputs.forEach((input) => {
+      input.value = "";
+    });
   }
 
   return {
