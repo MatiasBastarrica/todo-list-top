@@ -12,4 +12,14 @@ project1.addToDo(
   "unfinished",
 );
 
+project1.addToDo(
+  "Hygiene",
+  "Take a shower after cleaning",
+  "Now",
+  5,
+  "unfinished",
+);
+
 console.log(project1);
+
+project1.removeToDo("Reading");

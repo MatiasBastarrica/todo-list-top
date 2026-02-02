@@ -16,8 +16,8 @@ export class Project {
     this.toDos.push(toDo);
   }
 
-  removeToDo(toDo) {
-    let index = this.toDos.indexOf(toDo.name);
+  removeToDo(toDoName) {
+    let index = this.toDos.indexOf(toDoName);
     this.toDos.splice(index, 1);
   }
 }
