@@ -12,8 +12,8 @@ export class Project {
     this.name = newName;
   }
 
-  addToDo(name, desc, date, priority, status) {
-    const toDo = new ToDo(name, desc, date, priority, status);
+  addToDo(title, desc, date, priority, status) {
+    const toDo = new ToDo(title, desc, date, priority, status);
     this.toDos.push(toDo);
   }
 
