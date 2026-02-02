@@ -1,8 +1,9 @@
 import { ToDo } from "./toDo.js";
 
 export class Project {
-  constructor(name) {
+  constructor(name, desc) {
     this.name = name;
+    this.desc = desc;
   }
 
   toDos = [];
