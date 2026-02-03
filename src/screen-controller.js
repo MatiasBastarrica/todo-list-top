@@ -63,37 +63,42 @@ export const ScreenController = (function () {
   }
 
   function populateContentSection(project) {
+    emptyContentWindow();
     const toDos = project.toDos;
+    const contentWindow = document.createElement("div");
+    contentWindow.classList.add("content-window");
 
     const projectTitle = document.createElement("h1");
     projectTitle.classList.add("project-title");
     projectTitle.textContent = project.name;
-    contentSection.appendChild(projectTitle);
+    contentWindow.appendChild(projectTitle);
 
     const projectDesc = document.createElement("p");
     projectDesc.classList.add("project-descprition");
     projectDesc.textContent = project.desc;
-    contentSection.appendChild(projectDesc);
+    contentWindow.appendChild(projectDesc);
 
     const addToDoBtn = document.createElement("button");
     addToDoBtn.classList.add("add-to-do-btn");
     addToDoBtn.textContent = "Add To-Do";
-    contentSection.appendChild(addToDoBtn);
+    contentWindow.appendChild(addToDoBtn);
     addToDoBtn.addEventListener("click", function (e) {
       newToDoDialog.showModal();
     });
 
     const toDoList = document.createElement("ul");
     toDoList.classList.add("to-do-list");
-    contentSection.appendChild(toDoList);
+    contentWindow.appendChild(toDoList);
 
     if (toDos.length) {
       populateToDoSection(toDos);
     }
+
+    contentSection.appendChild(contentWindow);
   }
 
   function populateToDoSection(toDos) {
-    const toDoList = contentSection.querySelector(".to-do-list");
+    const toDoList = contentWindow.querySelector(".to-do-list");
     toDos.forEach((toDo) => {
       const toDoItem = createToDoHtml(toDo);
       toDoList.appendChild(toDoItem);
@@ -141,6 +146,13 @@ export const ScreenController = (function () {
     });
   }
 
+  function emptyContentWindow() {
+    const contentWindow = contentSection.querySelector(".content-window");
+    if (contentWindow) {
+      contentSection.removeChild(contentWindow);
+    }
+  }
+
   return {
     populateContentSection,
     addListeners,
@@ -149,3 +161,4 @@ export const ScreenController = (function () {
 })();
 
 // Remove the getProjects method
+// Only show one project and not more than one on the content window
