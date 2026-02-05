@@ -1,3 +1,4 @@
+import "./styles.css";
 import { Project } from "./project";
 import { ScreenController } from "./screen-controller.js";
 
