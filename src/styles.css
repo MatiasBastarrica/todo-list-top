@@ -53,3 +53,9 @@ h5,
 h6 {
   text-wrap: balance;
 }
+
+/* ### UTILITIES ### */
+
+.hidden {
+  display: none;
+}
