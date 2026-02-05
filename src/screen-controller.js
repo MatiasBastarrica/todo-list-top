@@ -91,13 +91,13 @@ export const ScreenController = (function () {
     contentWindow.appendChild(toDoList);
 
     if (toDos.length) {
-      populateToDoSection(toDos);
+      populateToDoSection(toDos, contentWindow);
     }
 
     contentSection.appendChild(contentWindow);
   }
 
-  function populateToDoSection(toDos) {
+  function populateToDoSection(toDos, contentWindow) {
     const toDoList = contentWindow.querySelector(".to-do-list");
     toDos.forEach((toDo) => {
       const toDoItem = createToDoHtml(toDo);
@@ -112,9 +112,12 @@ export const ScreenController = (function () {
     const toDoHeader = document.createElement("div");
     toDoHeader.classList.add("to-do-header");
     toDoItem.appendChild(toDoHeader);
+    toDoHeader.addEventListener("click", function (e) {
+      toDoBody.classList.toggle("hidden");
+    });
 
     const toDoBody = document.createElement("div");
-    toDoBody.classList.add("to-do-body");
+    toDoBody.classList.add("to-do-body", "hidden");
     toDoItem.appendChild(toDoBody);
 
     const toDoTitle = document.createElement("span");
