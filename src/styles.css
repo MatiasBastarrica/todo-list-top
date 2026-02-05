@@ -59,3 +59,90 @@ h6 {
 .hidden {
   display: none;
 }
+
+/* ### GENERAL ### */
+
+body {
+  /* background-color: cadetblue; */
+}
+
+/* ### TO-DO APP ### */
+
+main {
+  background-color: burlywood;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ### TO-DO SIDEBAR ### */
+
+.to-do__sidebar {
+  background-color: cadetblue;
+  flex-basis: 15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3rem 1.5rem;
+}
+
+.to-do__sidebar ul {
+  list-style: none;
+}
+
+.to-do__sidebar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.default-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ### TO-DO CONTENT ### */
+
+.content-window {
+  max-width: 80%;
+  margin-inline: auto;
+}
+
+.to-do__content {
+  padding: 4rem 1rem;
+  background-color: orchid;
+  flex: 1;
+}
+
+.content-window {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.content-window .add-to-do-btn {
+  margin-top: 5rem;
+  align-self: flex-end;
+}
+
+.to-do-list {
+  list-style: none;
+}
+
+.to-do-list-item {
+  /* border: 2px solid white; */
+  padding: 0.5rem;
+}
+
+.to-do-list-item + .to-do-list-item {
+  border-top: 2px solid white;
+}
+
+.to-do-header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.to-do-title {
+  margin-right: auto;
+}
