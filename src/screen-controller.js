@@ -109,25 +109,33 @@ export const ScreenController = (function () {
     const toDoItem = document.createElement("li");
     toDoItem.classList.add("to-do-list-item");
 
-    const toDoTitle = document.createElement("h2");
+    const toDoHeader = document.createElement("div");
+    toDoHeader.classList.add("to-do-header");
+    toDoItem.appendChild(toDoHeader);
+
+    const toDoBody = document.createElement("div");
+    toDoBody.classList.add("to-do-body");
+    toDoItem.appendChild(toDoBody);
+
+    const toDoTitle = document.createElement("span");
     toDoTitle.classList.add("to-do-title");
     toDoTitle.textContent = toDo.title;
-    toDoItem.appendChild(toDoTitle);
+    toDoHeader.appendChild(toDoTitle);
 
     const toDoDesc = document.createElement("p");
     toDoDesc.classList.add("to-do-desc");
     toDoDesc.textContent = toDo.description;
-    toDoItem.appendChild(toDoDesc);
+    toDoBody.appendChild(toDoDesc);
 
-    const toDoDate = document.createElement("p");
+    const toDoDate = document.createElement("span");
     toDoDate.classList.add("to-do-date");
     toDoDate.textContent = toDo.dueDate;
-    toDoItem.appendChild(toDoDate);
+    toDoHeader.appendChild(toDoDate);
 
-    const toDoPriority = document.createElement("p");
+    const toDoPriority = document.createElement("span");
     toDoPriority.classList.add("to-do-priority");
     toDoPriority.textContent = toDo.priority;
-    toDoItem.appendChild(toDoPriority);
+    toDoHeader.appendChild(toDoPriority);
 
     return toDoItem;
   }
