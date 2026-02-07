@@ -139,10 +139,34 @@ main {
 
 .to-do-header {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
+  justify-content: space-between;
+}
+
+.to-do-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.to-do-header-tags {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 .to-do-title {
   margin-right: auto;
+}
+/* 
+.to-do-body {
+  display: flex;
+  flex-direction: column;
+  grid-area: 0.8rem;
+} */
+
+.to-do-edit-btn {
+  display: block;
+  margin-left: auto;
 }

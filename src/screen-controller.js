@@ -13,33 +13,68 @@ export const ScreenController = (function () {
 
   const projects = [];
   let currentProject;
+  let currentToDo;
+
+  const ProjectDialog = (function () {
+    const dialog = document.querySelector(".new-project-dialog");
+    const btn = document.querySelector(".new-project-dialog__btn");
+
+    const nameInput = dialog.querySelector("#name");
+    const descInput = dialog.querySelector("textarea");
+
+    return {
+      dialog,
+      btn,
+      nameInput,
+      descInput,
+    };
+  })();
+
+  const ToDoDialog = (function () {
+    const dialog = document.querySelector(".new-to-do-dialog");
+    const btn = document.querySelector(".new-to-do-dialog__btn");
+
+    const titleInput = dialog.querySelector("#title");
+    const descInput = dialog.querySelector("textarea");
+    const dueDateInput = dialog.querySelector("#dueDate");
+    const priorityInput = dialog.querySelector("#priority");
+
+    return {
+      dialog,
+      btn,
+      titleInput,
+      descInput,
+      dueDateInput,
+      priorityInput,
+    };
+  })();
 
   function addListeners() {
     btnAddProject.addEventListener("click", function (e) {
-      newProjectDialog.showModal();
+      ProjectDialog.dialog.showModal();
     });
 
-    newProjectDialogBtn.addEventListener("click", function (e) {
+    ProjectDialog.btn.addEventListener("click", function (e) {
       e.preventDefault();
-      const name = newProjectDialog.querySelector("#name").value;
-      const desc = newProjectDialog.querySelector("textarea").value;
+      const name = ProjectDialog.nameInput.value;
+      const desc = ProjectDialog.descInput.value;
       const newProject = new Project(name, desc);
       addProjectToSidebar(newProject);
       projects.push(newProject);
-      emptyModal(newProjectDialog);
-      newProjectDialog.close();
+      emptyModal(ProjectDialog.dialog);
+      ProjectDialog.dialog.close();
     });
 
-    newToDoDialogBtn.addEventListener("click", function (e) {
+    ToDoDialog.btn.addEventListener("click", function (e) {
       e.preventDefault();
-      const title = newToDoDialog.querySelector("#title").value;
-      const desc = newToDoDialog.querySelector("textarea").value;
-      const dueDate = newToDoDialog.querySelector("#dueDate").value;
-      const priority = newToDoDialog.querySelector("#priority").value;
+      const title = ToDoDialog.titleInput.value;
+      const desc = ToDoDialog.descInput.value;
+      const dueDate = ToDoDialog.dueDateInput.value;
+      const priority = ToDoDialog.priorityInput.value;
       currentProject.addToDo(title, desc, dueDate, priority, "unfinished");
       populateNewToDo(currentProject.toDos[currentProject.toDos.length - 1]);
-      emptyModal(newToDoDialog);
-      newToDoDialog.close();
+      emptyModal(ToDoDialog.dialog);
+      ToDoDialog.dialog.close();
     });
   }
 
@@ -83,7 +118,7 @@ export const ScreenController = (function () {
     addToDoBtn.textContent = "Add To-Do";
     contentWindow.appendChild(addToDoBtn);
     addToDoBtn.addEventListener("click", function (e) {
-      newToDoDialog.showModal();
+      ToDoDialog.dialog.showModal();
     });
 
     const toDoList = document.createElement("ul");
@@ -112,7 +147,35 @@ export const ScreenController = (function () {
     const toDoHeader = document.createElement("div");
     toDoHeader.classList.add("to-do-header");
     toDoItem.appendChild(toDoHeader);
-    toDoHeader.addEventListener("click", function (e) {
+
+    const headerText = document.createElement("div");
+    toDoHeader.appendChild(headerText);
+    headerText.classList.add("to-do-header__text");
+
+    const toDoTitle = document.createElement("span");
+    toDoTitle.classList.add("to-do-title");
+    toDoTitle.textContent = toDo.title;
+    headerText.appendChild(toDoTitle);
+
+    const headerTags = document.createElement("div");
+    headerTags.classList.add("to-do-header-tags");
+    headerText.appendChild(headerTags);
+
+    const toDoDate = document.createElement("span");
+    toDoDate.classList.add("to-do-date");
+    toDoDate.textContent = toDo.dueDate;
+    headerTags.appendChild(toDoDate);
+
+    const toDoPriority = document.createElement("span");
+    toDoPriority.classList.add("to-do-priority");
+    toDoPriority.textContent = toDo.priority;
+    headerTags.appendChild(toDoPriority);
+
+    const seeMoreBtn = document.createElement("button");
+    seeMoreBtn.classList.add("to-do-see-more-btn");
+    seeMoreBtn.textContent = "See more";
+    toDoHeader.appendChild(seeMoreBtn);
+    seeMoreBtn.addEventListener("click", function (e) {
       toDoBody.classList.toggle("hidden");
     });
 
@@ -120,25 +183,15 @@ export const ScreenController = (function () {
     toDoBody.classList.add("to-do-body", "hidden");
     toDoItem.appendChild(toDoBody);
 
-    const toDoTitle = document.createElement("span");
-    toDoTitle.classList.add("to-do-title");
-    toDoTitle.textContent = toDo.title;
-    toDoHeader.appendChild(toDoTitle);
-
     const toDoDesc = document.createElement("p");
     toDoDesc.classList.add("to-do-desc");
     toDoDesc.textContent = toDo.description;
     toDoBody.appendChild(toDoDesc);
 
-    const toDoDate = document.createElement("span");
-    toDoDate.classList.add("to-do-date");
-    toDoDate.textContent = toDo.dueDate;
-    toDoHeader.appendChild(toDoDate);
-
-    const toDoPriority = document.createElement("span");
-    toDoPriority.classList.add("to-do-priority");
-    toDoPriority.textContent = toDo.priority;
-    toDoHeader.appendChild(toDoPriority);
+    const toDoEditBtn = document.createElement("button");
+    toDoEditBtn.classList.add("to-do-edit-btn");
+    toDoEditBtn.textContent = "Edit";
+    toDoBody.appendChild(toDoEditBtn);
 
     return toDoItem;
   }
