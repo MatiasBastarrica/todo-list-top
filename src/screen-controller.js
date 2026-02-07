@@ -4,12 +4,6 @@ export const ScreenController = (function () {
   const btnAddProject = document.querySelector(".btn-add-project");
   const projectsList = document.querySelector(".projects-list");
   const contentSection = document.querySelector(".to-do__content");
-  const newProjectDialog = document.querySelector(".new-project-dialog");
-  const newProjectDialogBtn = document.querySelector(
-    ".new-project-dialog__btn",
-  );
-  const newToDoDialog = document.querySelector(".new-to-do-dialog");
-  const newToDoDialogBtn = document.querySelector(".new-to-do-dialog__btn");
 
   const projects = [];
   let currentProject;
