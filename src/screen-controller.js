@@ -46,6 +46,13 @@ export const ScreenController = (function () {
 
     const edit = false;
 
+    function fill(title, desc, date, priority) {
+      titleInput.value = title;
+      descInput.value = desc;
+      dueDateInput.value = date;
+      priorityInput.value = priority;
+    }
+
     return {
       dialog,
       btn,
@@ -54,6 +61,7 @@ export const ScreenController = (function () {
       dueDateInput,
       priorityInput,
       edit,
+      fill,
     };
   })();
 
@@ -77,14 +85,18 @@ export const ScreenController = (function () {
       e.preventDefault();
       const title = ToDoDialog.titleInput.value;
       const desc = ToDoDialog.descInput.value;
-      const dueDate = formatDistanceToNowStrict(ToDoDialog.dueDateInput.value, {
+      // const dueDate = formatDistanceToNowStrict(ToDoDialog.dueDateInput.value, {
+      //   addSuffix: true,
+      // });
+      const dueDate = ToDoDialog.dueDateInput.value;
+      const dueDateFormatted = formatDistanceToNowStrict(dueDate, {
         addSuffix: true,
       });
       const priority = ToDoDialog.priorityInput.value;
       if (ToDoDialog.edit) {
         currentToDo.toDo.edit(title, desc, dueDate, priority, false);
         // EDIT THE HTML OF THE TODO TO BE EDITED
-        editToDo(title, desc, dueDate, priority, false);
+        editToDo(title, desc, dueDateFormatted, priority, false);
         ToDoDialog.edit = false;
       } else {
         currentProject.addToDo(title, desc, dueDate, priority, false);
@@ -192,7 +204,9 @@ export const ScreenController = (function () {
 
     const toDoDate = document.createElement("span");
     toDoDate.classList.add("to-do-date");
-    toDoDate.textContent = toDo.dueDate;
+    toDoDate.textContent = formatDistanceToNowStrict(toDo.dueDate, {
+      addSuffix: true,
+    });
     headerTags.appendChild(toDoDate);
 
     const toDoPriority = document.createElement("span");
@@ -229,6 +243,12 @@ export const ScreenController = (function () {
       currentToDo.descElement = toDoDesc;
       currentToDo.dueDateElement = toDoDate;
       currentToDo.priorityElement = toDoPriority;
+      ToDoDialog.fill(
+        toDo.title,
+        toDo.description,
+        toDo.dueDate,
+        toDo.priority,
+      );
       ToDoDialog.dialog.showModal();
     });
 
