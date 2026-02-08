@@ -8,8 +8,9 @@ export class Project {
 
   toDos = [];
 
-  rename(newName) {
+  rename(newName, newDesc) {
     this.name = newName;
+    this.desc = newDesc;
   }
 
   addToDo(title, desc, date, priority, checked) {

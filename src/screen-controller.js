@@ -7,7 +7,13 @@ export const ScreenController = (function () {
   const contentSection = document.querySelector(".to-do__content");
 
   const projects = [];
-  let currentProject;
+  // let currentProject;
+  let currentProject = {
+    project: undefined,
+    listItem: undefined,
+    nameElement: undefined,
+    descElement: undefined,
+  };
   let currentToDo = {
     toDo: undefined,
     listItem: undefined,
@@ -26,12 +32,18 @@ export const ScreenController = (function () {
 
     let edit = false;
 
+    function fill(name, desc) {
+      nameInput.value = name;
+      descInput.value = desc;
+    }
+
     return {
       dialog,
       btn,
       nameInput,
       descInput,
       edit,
+      fill,
     };
   })();
 
@@ -74,9 +86,19 @@ export const ScreenController = (function () {
       e.preventDefault();
       const name = ProjectDialog.nameInput.value;
       const desc = ProjectDialog.descInput.value;
-      const newProject = new Project(name, desc);
-      addProjectToSidebar(newProject);
-      projects.push(newProject);
+      if (ProjectDialog.edit) {
+        // edit the sidebar and the project section of the window
+        currentProject.project.rename(name, desc);
+        let sidebarLink = currentProject.listItem.querySelector("a");
+        sidebarLink.textContent = `${name}`;
+        currentProject.nameElement.textContent = `${name}`;
+        currentProject.descElement.textContent = `${desc}`;
+        currentProject.edit = false;
+      } else {
+        const newProject = new Project(name, desc);
+        addProjectToSidebar(newProject);
+        projects.push(newProject);
+      }
       emptyModal(ProjectDialog.dialog);
       ProjectDialog.dialog.close();
     });
@@ -99,8 +121,10 @@ export const ScreenController = (function () {
         editToDo(title, desc, dueDateFormatted, priority, false);
         ToDoDialog.edit = false;
       } else {
-        currentProject.addToDo(title, desc, dueDate, priority, false);
-        populateNewToDo(currentProject.toDos[currentProject.toDos.length - 1]);
+        currentProject.project.addToDo(title, desc, dueDate, priority, false);
+        populateNewToDo(
+          currentProject.project.toDos[currentProject.project.toDos.length - 1],
+        );
       }
       emptyModal(ToDoDialog.dialog);
       ToDoDialog.dialog.close();
@@ -116,7 +140,8 @@ export const ScreenController = (function () {
     projectsList.appendChild(listItem);
     link.addEventListener("click", function (e) {
       populateContentSection(project);
-      currentProject = project;
+      currentProject.project = project;
+      currentProject.listItem = listItem;
     });
   }
 
@@ -136,11 +161,23 @@ export const ScreenController = (function () {
     projectTitle.classList.add("project-title");
     projectTitle.textContent = project.name;
     contentWindow.appendChild(projectTitle);
+    currentProject.nameElement = projectTitle;
 
     const projectDesc = document.createElement("p");
     projectDesc.classList.add("project-descprition");
     projectDesc.textContent = project.desc;
     contentWindow.appendChild(projectDesc);
+    currentProject.descElement = projectDesc;
+
+    const editProjectBtn = document.createElement("button");
+    editProjectBtn.classList.add("edit-project-btn");
+    editProjectBtn.textContent = "Edit project";
+    editProjectBtn.addEventListener("click", function (e) {
+      ProjectDialog.edit = true;
+      ProjectDialog.fill(project.name, project.desc);
+      ProjectDialog.dialog.showModal();
+    });
+    contentWindow.appendChild(editProjectBtn);
 
     const addToDoBtn = document.createElement("button");
     addToDoBtn.classList.add("add-to-do-btn");

@@ -124,6 +124,10 @@ main {
   gap: 1rem;
 }
 
+.edit-project-btn {
+  align-self: flex-end;
+}
+
 .content-window .add-to-do-btn {
   margin-top: 5rem;
   align-self: flex-end;
