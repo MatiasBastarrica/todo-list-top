@@ -7,7 +7,14 @@ export const ScreenController = (function () {
 
   const projects = [];
   let currentProject;
-  let currentToDo;
+  let currentToDo = {
+    toDo: undefined,
+    listItem: undefined,
+    titleElement: undefined,
+    descElement: undefined,
+    dueDateElement: undefined,
+    priorityElement: undefined,
+  };
 
   const ProjectDialog = (function () {
     const dialog = document.querySelector(".new-project-dialog");
@@ -16,11 +23,14 @@ export const ScreenController = (function () {
     const nameInput = dialog.querySelector("#name");
     const descInput = dialog.querySelector("textarea");
 
+    let edit = false;
+
     return {
       dialog,
       btn,
       nameInput,
       descInput,
+      edit,
     };
   })();
 
@@ -65,8 +75,15 @@ export const ScreenController = (function () {
       const desc = ToDoDialog.descInput.value;
       const dueDate = ToDoDialog.dueDateInput.value;
       const priority = ToDoDialog.priorityInput.value;
-      currentProject.addToDo(title, desc, dueDate, priority, "unfinished");
-      populateNewToDo(currentProject.toDos[currentProject.toDos.length - 1]);
+      if (ToDoDialog.edit) {
+        currentToDo.toDo.edit(title, desc, dueDate, priority, "unfinished");
+        // EDIT THE HTML OF THE TODO TO BE EDITED
+        editToDo(title, desc, dueDate, priority, "unfinished");
+        ToDoDialog.edit = false;
+      } else {
+        currentProject.addToDo(title, desc, dueDate, priority, "unfinished");
+        populateNewToDo(currentProject.toDos[currentProject.toDos.length - 1]);
+      }
       emptyModal(ToDoDialog.dialog);
       ToDoDialog.dialog.close();
     });
@@ -186,8 +203,25 @@ export const ScreenController = (function () {
     toDoEditBtn.classList.add("to-do-edit-btn");
     toDoEditBtn.textContent = "Edit";
     toDoBody.appendChild(toDoEditBtn);
+    toDoEditBtn.addEventListener("click", function (e) {
+      ToDoDialog.edit = true;
+      currentToDo.toDo = toDo;
+      currentToDo.listItem = toDoItem;
+      currentToDo.titleElement = toDoTitle;
+      currentToDo.descElement = toDoDesc;
+      currentToDo.dueDateElement = toDoDate;
+      currentToDo.priorityElement = toDoPriority;
+      ToDoDialog.dialog.showModal();
+    });
 
     return toDoItem;
+  }
+
+  function editToDo(title, desc, dueDate, priority, status) {
+    currentToDo.titleElement.textContent = title;
+    currentToDo.descElement.textContent = desc;
+    currentToDo.dueDateElement.textContent = dueDate;
+    currentToDo.priorityElement.textContent = priority;
   }
 
   function getProjects() {
