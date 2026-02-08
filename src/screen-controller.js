@@ -79,12 +79,12 @@ export const ScreenController = (function () {
       const dueDate = ToDoDialog.dueDateInput.value;
       const priority = ToDoDialog.priorityInput.value;
       if (ToDoDialog.edit) {
-        currentToDo.toDo.edit(title, desc, dueDate, priority, "unfinished");
+        currentToDo.toDo.edit(title, desc, dueDate, priority, false);
         // EDIT THE HTML OF THE TODO TO BE EDITED
-        editToDo(title, desc, dueDate, priority, "unfinished");
+        editToDo(title, desc, dueDate, priority, false);
         ToDoDialog.edit = false;
       } else {
-        currentProject.addToDo(title, desc, dueDate, priority, "unfinished");
+        currentProject.addToDo(title, desc, dueDate, priority, false);
         populateNewToDo(currentProject.toDos[currentProject.toDos.length - 1]);
       }
       emptyModal(ToDoDialog.dialog);

@@ -48,7 +48,14 @@
         <label for="dueDate">Due date</label><br />
         <input type="text" id="dueDate" /><br />
         <label for="priority">Priority</label><br />
-        <input type="text" id="priority" /><br />
+        <select name="priority" id="priority">
+          <option value="urgent">Urgent</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+
+        <br />
         <button type="submit" class="new-to-do-dialog__btn">Save</button>
       </form>
     </dialog>
