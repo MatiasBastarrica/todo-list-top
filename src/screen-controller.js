@@ -274,12 +274,6 @@ export const ScreenController = (function () {
     toDoBody.appendChild(toDoEditBtn);
     toDoEditBtn.addEventListener("click", function (e) {
       ToDoDialog.edit = true;
-      // currentToDo.toDo = toDo;
-      // currentToDo.listItem = toDoItem;
-      // currentToDo.titleElement = toDoTitle;
-      // currentToDo.descElement = toDoDesc;
-      // currentToDo.dueDateElement = toDoDate;
-      // currentToDo.priorityElement = toDoPriority;
       selectToDo(toDo, toDoItem, toDoTitle, toDoDesc, toDoDate, toDoPriority);
       ToDoDialog.fill(
         toDo.title,
@@ -298,9 +292,6 @@ export const ScreenController = (function () {
       selectToDo(toDo, toDoItem, toDoTitle, toDoDesc, toDoDate, toDoPriority);
       currentProject.project.removeToDo(toDo.title);
       currentToDo.listItem.remove();
-      // const toDoList = currentToDo.listItem.parentNode;
-      // const listItems = toDoList.querySelectorAll("li");
-      // const listItems.filter((listItem) => listItem === currentToDo.listItem)
     });
 
     return toDoItem;
