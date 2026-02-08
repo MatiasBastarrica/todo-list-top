@@ -1,4 +1,5 @@
 import { Project } from "./project.js";
+import { formatDistanceToNowStrict } from "date-fns";
 
 export const ScreenController = (function () {
   const btnAddProject = document.querySelector(".btn-add-project");
@@ -76,7 +77,9 @@ export const ScreenController = (function () {
       e.preventDefault();
       const title = ToDoDialog.titleInput.value;
       const desc = ToDoDialog.descInput.value;
-      const dueDate = ToDoDialog.dueDateInput.value;
+      const dueDate = formatDistanceToNowStrict(ToDoDialog.dueDateInput.value, {
+        addSuffix: true,
+      });
       const priority = ToDoDialog.priorityInput.value;
       if (ToDoDialog.edit) {
         currentToDo.toDo.edit(title, desc, dueDate, priority, false);
