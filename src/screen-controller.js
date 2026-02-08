@@ -43,6 +43,8 @@ export const ScreenController = (function () {
     const dueDateInput = dialog.querySelector("#dueDate");
     const priorityInput = dialog.querySelector("#priority");
 
+    const edit = false;
+
     return {
       dialog,
       btn,
@@ -50,6 +52,7 @@ export const ScreenController = (function () {
       descInput,
       dueDateInput,
       priorityInput,
+      edit,
     };
   })();
 
@@ -163,6 +166,18 @@ export const ScreenController = (function () {
     toDoHeader.appendChild(headerText);
     headerText.classList.add("to-do-header__text");
 
+    const toDoInput = document.createElement("input");
+    toDoInput.type = "checkbox";
+    headerText.appendChild(toDoInput);
+    toDoInput.addEventListener("click", function (e) {
+      toDo.checked = true;
+      if (toDoInput.checked) {
+        toDoTitle.classList.add("striked");
+      } else {
+        toDoTitle.classList.remove("striked");
+      }
+    });
+
     const toDoTitle = document.createElement("span");
     toDoTitle.classList.add("to-do-title");
     toDoTitle.textContent = toDo.title;
@@ -217,7 +232,7 @@ export const ScreenController = (function () {
     return toDoItem;
   }
 
-  function editToDo(title, desc, dueDate, priority, status) {
+  function editToDo(title, desc, dueDate, priority, checked) {
     currentToDo.titleElement.textContent = title;
     currentToDo.descElement.textContent = desc;
     currentToDo.dueDateElement.textContent = dueDate;
