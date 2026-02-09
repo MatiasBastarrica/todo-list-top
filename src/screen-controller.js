@@ -239,6 +239,12 @@ export const ScreenController = (function () {
     toDoTitle.classList.add("to-do-title");
     toDoTitle.textContent = toDo.title;
     headerText.appendChild(toDoTitle);
+    if (toDo.checked) {
+      toDoInput.checked = true;
+      toDoTitle.classList.add("striked");
+    } else {
+      toDoInput.checked = false;
+    }
 
     const headerTags = document.createElement("div");
     headerTags.classList.add("to-do-header-tags");
