@@ -5,6 +5,7 @@ export const ScreenController = (function () {
   const btnAddProject = document.querySelector(".btn-add-project");
   const projectsList = document.querySelector(".projects-list");
   const contentSection = document.querySelector(".to-do__content");
+  const inboxLink = document.querySelector(".inbox__link");
 
   const projects = [];
   // let currentProject;
@@ -78,6 +79,10 @@ export const ScreenController = (function () {
   })();
 
   function addListeners() {
+    inboxLink.addEventListener("click", function (e) {
+      populateInbox();
+    });
+
     btnAddProject.addEventListener("click", function (e) {
       ProjectDialog.dialog.showModal();
     });
@@ -191,7 +196,7 @@ export const ScreenController = (function () {
     toDoList.classList.add("to-do-list");
     contentWindow.appendChild(toDoList);
 
-    if (toDos.length) {
+    if (project.toDos.length) {
       populateToDoSection(toDos, contentWindow);
     }
 
@@ -341,12 +346,35 @@ export const ScreenController = (function () {
     }
   }
 
+  function populateInbox() {
+    emptyContentWindow();
+    const contentWindow = document.createElement("div");
+    contentWindow.classList.add("content-window");
+
+    const title = document.createElement("h1");
+    title.textContent = "Inbox";
+    title.classList.add("inbox-title");
+    contentWindow.appendChild(title);
+
+    const toDoList = document.createElement("ul");
+    toDoList.classList.add("to-do-list");
+    contentWindow.appendChild(toDoList);
+
+    projects.forEach((project) => {
+      populateToDoSection(project.toDos, contentWindow);
+    });
+
+    contentSection.appendChild(contentWindow);
+  }
+
   return {
     populateContentSection,
     addListeners,
     getProjects,
+    populateInbox,
   };
 })();
 
 // Remove the getProjects method
 // Only show one project and not more than one on the content window
+// keep the status of the checkboxes when selecting other projects
