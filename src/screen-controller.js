@@ -104,6 +104,7 @@ export const ScreenController = (function () {
         addProjectToSidebar(newProject);
         projects.push(newProject);
       }
+      saveProjects();
       emptyModal(ProjectDialog.dialog);
       ProjectDialog.dialog.close();
     });
@@ -131,6 +132,7 @@ export const ScreenController = (function () {
           currentProject.project.toDos[currentProject.project.toDos.length - 1],
         );
       }
+      saveProjects();
       emptyModal(ToDoDialog.dialog);
       ToDoDialog.dialog.close();
     });
@@ -227,12 +229,16 @@ export const ScreenController = (function () {
     toDoInput.type = "checkbox";
     headerText.appendChild(toDoInput);
     toDoInput.addEventListener("click", function (e) {
-      toDo.checked = true;
+      // toDo.checked = true;
+
       if (toDoInput.checked) {
+        toDo.checked = false;
         toDoTitle.classList.add("striked");
       } else {
+        toDo.checked = true;
         toDoTitle.classList.remove("striked");
       }
+      saveProjects();
     });
 
     const toDoTitle = document.createElement("span");
@@ -303,6 +309,7 @@ export const ScreenController = (function () {
       selectToDo(toDo, toDoItem, toDoTitle, toDoDesc, toDoDate, toDoPriority);
       currentProject.project.removeToDo(toDo.title);
       currentToDo.listItem.remove();
+      saveProjects();
     });
 
     return toDoItem;
@@ -371,6 +378,10 @@ export const ScreenController = (function () {
     });
 
     contentSection.appendChild(contentWindow);
+  }
+
+  function saveProjects() {
+    localStorage.setItem("projects", JSON.stringify(projects));
   }
 
   return {
