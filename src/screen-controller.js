@@ -81,6 +81,7 @@ export const ScreenController = (function () {
   function addListeners() {
     inboxLink.addEventListener("click", function (e) {
       populateInbox();
+      showSidebarSelection(inboxLink.parentElement);
     });
 
     btnAddProject.addEventListener("click", function (e) {
@@ -146,6 +147,7 @@ export const ScreenController = (function () {
     link.textContent = project.name;
     projectsList.appendChild(listItem);
     link.addEventListener("click", function (e) {
+      showSidebarSelection(listItem);
       populateContentSection(project);
       currentProject.project = project;
       currentProject.listItem = listItem;
@@ -403,6 +405,32 @@ export const ScreenController = (function () {
     populateInbox();
     projects.forEach((project) => {
       addProjectToSidebar(project);
+    });
+  }
+
+  function showSidebarSelection(selection) {
+    const allItems = document.querySelectorAll(".to-do__sidebar li");
+
+    allItems.forEach((item) => {
+      if (item.classList.contains("selected") && item !== selection) {
+        item.classList.remove("selected");
+      }
+    });
+
+    selection.classList.add("selected");
+  }
+
+  function select(project) {
+    project.style.fontWeight = "600";
+    project.style.color = "deeppink";
+  }
+
+  function unselect(projects, exception) {
+    projects.forEach((project) => {
+      if (project.style.fontWeight === "600" && project !== exception) {
+        project.style.fontWeight = "500";
+        project.style.color = "black";
+      }
     });
   }
 
