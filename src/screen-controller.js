@@ -382,5 +382,4 @@ export const ScreenController = (function () {
 })();
 
 // Remove the getProjects method
-// Only show one project and not more than one on the content window
-// keep the status of the checkboxes when selecting other projects
+// Remove a project
