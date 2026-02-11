@@ -59,3 +59,7 @@ console.log("Welcome, Odinite!!!");
 // console.log(project1.toDos.length);
 
 // ScreenController.getProjects();
+
+if (localStorage.getItem("projects")) {
+  ScreenController.loadProjects();
+}

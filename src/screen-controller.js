@@ -7,7 +7,7 @@ export const ScreenController = (function () {
   const contentSection = document.querySelector(".to-do__content");
   const inboxLink = document.querySelector(".inbox__link");
 
-  const projects = [];
+  let projects = [];
   // let currentProject;
   let currentProject = {
     project: undefined,
@@ -384,11 +384,35 @@ export const ScreenController = (function () {
     localStorage.setItem("projects", JSON.stringify(projects));
   }
 
+  function loadProjects() {
+    const projectsSaved = JSON.parse(localStorage.getItem("projects"));
+
+    projectsSaved.forEach((projectSaved) => {
+      const project = new Project(projectSaved.name, projectSaved.desc);
+      projectSaved.toDos.forEach((toDoSaved) => {
+        project.addToDo(
+          toDoSaved.title,
+          toDoSaved.description,
+          toDoSaved.dueDate,
+          toDoSaved.priority,
+          toDoSaved.checked,
+        );
+      });
+      projects.push(project);
+    });
+    populateInbox();
+    projects.forEach((project) => {
+      addProjectToSidebar(project);
+    });
+  }
+
   return {
     populateContentSection,
     addListeners,
     getProjects,
     populateInbox,
+    projects,
+    loadProjects,
   };
 })();
 
