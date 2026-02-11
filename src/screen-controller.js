@@ -307,7 +307,7 @@ export const ScreenController = (function () {
     toDoBody.appendChild(toDoRemoveBtn);
     toDoRemoveBtn.addEventListener("click", function (e) {
       selectToDo(toDo, toDoItem, toDoTitle, toDoDesc, toDoDate, toDoPriority);
-      currentProject.project.removeToDo(toDo.title);
+      currentProject.project.removeToDo(toDo);
       currentToDo.listItem.remove();
       saveProjects();
     });

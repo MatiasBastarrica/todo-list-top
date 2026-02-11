@@ -18,8 +18,8 @@ export class Project {
     this.toDos.push(toDo);
   }
 
-  removeToDo(toDoTitle) {
-    let index = this.toDos.indexOf(toDoTitle);
+  removeToDo(toDo) {
+    let index = this.toDos.indexOf(toDo);
     this.toDos.splice(index, 1);
   }
 }
