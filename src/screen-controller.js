@@ -232,10 +232,10 @@ export const ScreenController = (function () {
       // toDo.checked = true;
 
       if (toDoInput.checked) {
-        toDo.checked = false;
+        toDo.checked = true;
         toDoTitle.classList.add("striked");
       } else {
-        toDo.checked = true;
+        toDo.checked = false;
         toDoTitle.classList.remove("striked");
       }
       saveProjects();
