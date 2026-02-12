@@ -2,7 +2,7 @@
 
 ![](./src/screenshot.png)
 
-[Live version](https://matiasbastarrica.github.io/library-top/)
+[Live version](https://matiasbastarrica.github.io/todo-list-top/)
 
 # The todo list
 
