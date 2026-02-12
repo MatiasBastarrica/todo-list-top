@@ -188,6 +188,17 @@ export const ScreenController = (function () {
     });
     contentWindow.appendChild(editProjectBtn);
 
+    const removeProjectBtn = document.createElement("button");
+    removeProjectBtn.classList.add("remove-project-btn");
+    removeProjectBtn.textContent = "Remove project";
+    removeProjectBtn.addEventListener("click", function (e) {
+      removeProject(project);
+      currentProject.listItem.remove();
+      saveProjects();
+      inboxLink.click();
+    });
+    contentWindow.appendChild(removeProjectBtn);
+
     const addToDoBtn = document.createElement("button");
     addToDoBtn.classList.add("add-to-do-btn");
     addToDoBtn.textContent = "Add To-Do";
@@ -420,18 +431,9 @@ export const ScreenController = (function () {
     selection.classList.add("selected");
   }
 
-  function select(project) {
-    project.style.fontWeight = "600";
-    project.style.color = "deeppink";
-  }
-
-  function unselect(projects, exception) {
-    projects.forEach((project) => {
-      if (project.style.fontWeight === "600" && project !== exception) {
-        project.style.fontWeight = "500";
-        project.style.color = "black";
-      }
-    });
+  function removeProject(project) {
+    let index = projects.indexOf(project);
+    projects.splice(index, 1);
   }
 
   return {

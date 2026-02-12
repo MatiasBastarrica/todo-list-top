@@ -129,7 +129,8 @@ main {
   gap: 1rem;
 }
 
-.edit-project-btn {
+.edit-project-btn,
+.remove-project-btn {
   align-self: flex-end;
 }
 
