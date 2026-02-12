@@ -99,7 +99,7 @@ export const ScreenController = (function () {
         sidebarLink.textContent = `${name}`;
         currentProject.nameElement.textContent = `${name}`;
         currentProject.descElement.textContent = `${desc}`;
-        currentProject.edit = false;
+        ProjectDialogs.edit = false;
       } else {
         const newProject = new Project(name, desc);
         addProjectToSidebar(newProject);
